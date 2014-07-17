@@ -1,0 +1,20 @@
+.icon16.icon-associate:before, #adminmenu .menu-icon-associate div.wp-menu-image:before {
+  content: "\f175";
+}
+
+.icon16.icon-work_project:before, #adminmenu .menu-icon-work_project div.wp-menu-image:before {
+  content: "\f233";
+}
+
+.icon16.icon-service:before, #adminmenu .menu-icon-service div.wp-menu-image:before {
+  content: "\f308";
+}
+
+.work-item-images {
+  overflow: hidden;
+}
+.work-item-images div {
+  float: left;
+  width: 33%;
+  min-width: 150px;
+}

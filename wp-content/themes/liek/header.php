@@ -21,6 +21,15 @@
 	<?php wp_enqueue_style( 'app-style', get_stylesheet_uri(), array( 'dashicons' ), false, false ); ?>
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	<?php wp_enqueue_script( 'app-js', get_stylesheet_directory_uri().'/js/app.min.js', 'jquery', false, true ); ?>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-39834381-2', 'aqua-proof.me');
+		ga('send', 'pageview');
+	</script>
 	<?php wp_head(); ?>
 </head>
 <body cz-shortcut-listen="true">
@@ -38,13 +47,13 @@
 						<div class="large-12 columns">
 							<ul class="main-contact">
 								<li>
-									<a href="tel:<?php echo esc_attr( get_theme_mod( 'header_telephone', '' ) ); ?>"><i class="icon icon-tel"></i> <?php echo esc_attr( get_theme_mod( 'header_telephone', '' ) ); ?></a>
+									<a data-contact='tel' href="tel:<?php echo esc_attr( get_theme_mod( 'header_telephone', '' ) ); ?>"><i class="icon icon-tel"></i> <?php echo esc_attr( get_theme_mod( 'header_telephone', '' ) ); ?></a>
 								</li>
 								<li>
-									<a href="tel:<?php echo esc_attr( get_theme_mod( 'header_mobile', '' ) ); ?>"><i class="icon icon-mobile"></i> <?php echo esc_attr( get_theme_mod( 'header_mobile', '' ) ); ?></a>
+									<a data-contact='mobile' href="tel:<?php echo esc_attr( get_theme_mod( 'header_mobile', '' ) ); ?>"><i class="icon icon-mobile"></i> <?php echo esc_attr( get_theme_mod( 'header_mobile', '' ) ); ?></a>
 								</li>
 								<li>
-									<a href="mailto:<?php echo esc_attr( get_theme_mod( 'header_email', '' ) ); ?>"><i class="icon icon-email"></i> <?php echo esc_attr( get_theme_mod( 'header_email', '' ) ); ?></a>
+									<a data-contact='email' href="mailto:<?php echo esc_attr( get_theme_mod( 'header_email', '' ) ); ?>"><i class="icon icon-email"></i> <?php echo esc_attr( get_theme_mod( 'header_email', '' ) ); ?></a>
 								</li>
 							</ul>
 						</div>

@@ -167,6 +167,7 @@
 
       var mapOptions = {
         zoom: 10,
+        draggable: false,
         center: new google.maps.LatLng(51.4550131,-2.5865895),
         streetViewControl: false,
         zoomControl: false,
@@ -326,6 +327,8 @@
         self.active = $targetItem.data('name');
         $showcase.find('.showcase-content')
           .html($showcaseContent.hide().fadeIn());
+
+        $('body').animate({ scrollTop: $showcase.offset().top-lo100});
       }
     });
 
@@ -353,3 +356,29 @@
     });
   });
 })(jQuery);
+
+// Analytics
+(function ($) {
+  var activityTickCounter = 0;
+
+  function ActiveOnSite() {
+    if (activityTickCounter++ < 80) {
+      ga('send', 'event', 'Bounce Preventer 3001','Preventing bounces since 1404854771443','');
+    } else {
+      clearInterval(intervalId);
+    }
+  }
+
+  var intervalId = setInterval(ActiveOnSite, 15000);
+
+  if (typeof ga === 'function') {
+    $('[data-contact]').on('click', function (e) {
+      e.preventDefault();
+      var url = $(this).attr('href');
+
+      ga('send', 'event', 'header', 'contact', $(this).data('contact'));
+
+      setTimeout(function() { window.location = url; }, 300);
+    })
+  }
+}) (jQuery);

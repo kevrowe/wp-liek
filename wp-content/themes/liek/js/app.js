@@ -121,6 +121,8 @@
         $form.slideUp(500);
         var $response = $('[data-contact-response]');
 
+        ga('send', 'event', 'form', 'submit', 'contact');
+
         $response.slideDown(500);
       } else {
         $form.prepend('<p>There was an error sending your message, please consider emailing us directly.</p>');
@@ -380,5 +382,7 @@
 
       setTimeout(function() { window.location = url; }, 300);
     })
+
+    $('')
   }
 }) (jQuery);

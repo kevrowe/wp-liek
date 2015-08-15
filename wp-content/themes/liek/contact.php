@@ -1,10 +1,12 @@
 <?php
 /**
- * Template Name: Contact template
+ * Template Name: Form template
  */
 
 get_header();
 
+$formStyle = get_post_meta( $post->ID, 'liek_contact_page_form_style', true );
+$formSubject = get_post_meta( $post->ID, 'liek_contact_page_form_subject', true );
 $coord_dump = get_post_meta( $post->ID, 'liek_contact_page_map_coords', true );
 $coord_pairs = explode(')', str_replace('(', '', $coord_dump));
 $coords = array();
@@ -16,6 +18,8 @@ foreach ($coord_pairs as $coord) {
 	array_push($coords, explode(',', $coord));
 }
 
+$showMap = sizeof($coords) > 0;
+
 wp_localize_script( 'app-js', 'ContactMapCoords', $coords );
 wp_localize_script( 'app-js', 'ContactMapCallout', wpautop(get_post_meta( $post->ID, 'liek_contact_page_map_tooltip', true )) );
 ?>
@@ -26,10 +30,12 @@ wp_localize_script( 'app-js', 'ContactMapCallout', wpautop(get_post_meta( $post-
 		</div>
 	</div>
 	<div class="row">
-		<aside class="columns large-5">
-			<div class="map" id="areamap"></div>
-		</aside>
-		<div class="columns large-7">
+		<?php if ($showMap): ?>
+			<aside class="columns large-5">
+				<div class="map" id="areamap"></div>
+			</aside>
+		<?php endif; ?>
+		<div class="columns <?php echo $showMap ? 'large-7' : 'full no-callout' ?>">
 			<div class="row">
 				<article class="columns large-12">
 					<div class="callout-left slide-out-parent">
@@ -51,15 +57,29 @@ wp_localize_script( 'app-js', 'ContactMapCallout', wpautop(get_post_meta( $post-
 								<label for="telephone">Telephone*</label>
 								<input type="text" name="telephone" id="telephone" data-required />
 							</div>
+							<?php if ($formStyle == 1): ?>
+								<div>
+									<label for="address">Street Address*</label>
+									<input type="text" name="address" id="address" data-required />
+								</div>
+							<?php endif; ?>
 							<div>
-								<label for="postcode">Postcode</label>
-								<input type="text" name="postcode" id="postcode" class="short"/>
+								<label for="postcode">Postcode<?= $formStyle == 1 ? '*' : '' ?></label>
+								<input type="text" name="postcode" id="postcode" class="short"
+								<?= $formStyle == 1 ? 'data-required' : '' ?> />
 							</div>
+							<?php if ($formStyle == 1): ?>
+								<div>
+									<label for="code">Voucher code*</label>
+									<input type="text" name="code" id="code" class="short" data-required />
+								</div>
+							<?php endif; ?>
 							<div>
 								<label for="message">Additional Information</label>
 								<textarea name="message" id="message" cols="30" rows="10"></textarea>
 							</div>
 							<input type="hidden" name="mailto" value="<?php echo get_post_meta( $post->ID, 'liek_contact_page_mailto', true ) ?>" />
+							<input type="hidden" name="subject" value="<?php echo $formSubject ?>" />
 							<input type="submit" value="Send" name="send" id="send" class="primary button success radius full" />
 						</form>
 						<div class="hide" data-contact-response>

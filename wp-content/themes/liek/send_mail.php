@@ -31,11 +31,17 @@ if (isValid()) {
 	$message .= "<h2>".htmlspecialchars($_POST['name'])."</h2>";
 	$message .= "<p><label>Email: </label><a href='mailto:".htmlspecialchars($_POST['email'])."'>".htmlspecialchars($_POST['email'])."</a></p>";
 	$message .= "<p><label>Phone: </label>".htmlspecialchars($_POST['telephone'])."</p>";
+	if (isset($_POST['code'])) {
+		$message .= "<p><label>Voucher Code: </label>".htmlspecialchars($_POST['code'])."</p>";
+	}
+	if (isset($_POST['address'])) {
+		$message .= "<p><label>Address: </label>".htmlspecialchars($_POST['address'])."</p>";
+	}
 	$message .= "<p><label>Postcode: </label>".htmlspecialchars($_POST['postcode'])."</p>";
 	$message .= "<label>Message: </label>";
 	$message .= "<p>".str_replace("\r\n", "<br/>", htmlspecialchars($_POST['message']))."</p>";
 
-	$sent = mail($_POST['mailto'], "Aquaproof Contact Form", str_replace('%message%', $message, $template), $headers);
+	$sent = mail($_POST['mailto'], $_POST['subject'], str_replace('%message%', $message, $template), $headers);
 }
 
 print($sent ? 'success' : 'error');
